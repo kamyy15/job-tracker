@@ -42,3 +42,13 @@ def view_jobs(jobs): # needs jobs passed in a paramter to see it exists and be a
 
     else:
         print('You have no current job apps! Add some first to view them.')
+
+def update_status(jobs, id, new_status):
+    for applications in jobs:
+        if id == applications["id"]:
+            applications["status"] = new_status
+            save_job_applications(jobs)
+            print("Application status has been updated!")
+            break
+    else:
+        print("An application with that id does not exist.")
