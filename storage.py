@@ -1,7 +1,7 @@
 import json
 import os
 
-def load_job_applications():
+def load_job_applications(): # load from JSON into a list to interact with jobs.
     jobs = []
 
     if os.path.isfile("jobs.json"):
