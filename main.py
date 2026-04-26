@@ -1,5 +1,5 @@
 from storage import load_job_applications
-from jobs import add_job, view_jobs, update_status
+from jobs import add_job, view_jobs, update_status, delete_jobs
 
 jobs = load_job_applications()
 print("=================================")
@@ -14,8 +14,9 @@ while True:
     print("=================================")
     print(" 1. Add an application")
     print(" 2. View my applications")
-    print(" 3. Update the status of an application.")
-    print(" 4. Exit")
+    print(" 3. Update the status of an application")
+    print(" 4. Delete an application")
+    print(" 5. Exit")
     print("=================================")
     print("")
     
@@ -70,6 +71,16 @@ while True:
             print("You have no current job applications added. Add one first!")
             print("")
     elif choice == "4":
+        if jobs:
+            view = input("Would you like to view your applications first? y/n:")
+            if view == "y":
+                view_jobs(jobs)
+            remove_id = int(input("Which job application would you like to remove? "))
+            delete_jobs(jobs, remove_id)
+        else:
+            print("Add an application first to get started.")
+
+    elif choice == "5":
         print("See ya soon!")
         break
     else:

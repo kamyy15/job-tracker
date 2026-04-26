@@ -52,3 +52,13 @@ def update_status(jobs, id, new_status):
             break
     else:
         print("An application with that id does not exist.")
+
+def delete_jobs(jobs, remove_id):
+    for applications in jobs:
+        if remove_id == applications["id"]:
+            jobs.remove(applications)
+            save_job_applications(jobs)
+            print("Job application has been removed.")
+            break
+    else:
+        print("An application with that number does not exist.")
