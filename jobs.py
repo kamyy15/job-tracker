@@ -28,6 +28,7 @@ def view_jobs(jobs): # needs jobs passed in a paramter to see it exists and be a
     if jobs:
         for applications in jobs: # applications is each row
             print(f"{applications['id']}. {applications['company_name']} - {applications['position']}")
+            print(f"Date posted: {applications['date_posted']}")
             print(f"Status: {applications['status']}")
             print(f"Location: {applications['location']}")
             print(f"Work Environment: {applications['work_environment']}")
@@ -78,3 +79,23 @@ def filter_status(jobs, status):
     else:           
         view_jobs(filtered_lists)
 
+def update_application(jobs, update_id, field, new_value):
+    valid_fields = ['date_posted', 'position', 'location', 'work_environment', 'employment_type', 'pay', 'date_applied', 'deadline', 'contact', 'resume_version', 'notes']
+
+    if jobs:
+        if field in valid_fields:
+            for applications in jobs:
+                if update_id == applications["id"]:
+                    if field == "pay":
+                        new_value = float(new_value)
+                    applications[field] = new_value
+                    save_job_applications(jobs)
+                    print("You're application has been updated!")
+                    break
+            print(f"There is no application numbered {update_id}")
+        else:
+            print("Enter a valid field to update.")
+    else:
+        print("Add a first application to get started.")
+            
+            
