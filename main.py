@@ -1,5 +1,5 @@
 from storage import load_job_applications
-from jobs import add_job, view_jobs, update_status, delete_jobs
+from jobs import add_job, view_jobs, update_status, delete_jobs, filter_status
 
 jobs = load_job_applications()
 print("=================================")
@@ -14,9 +14,10 @@ while True:
     print("=================================")
     print(" 1. Add an application")
     print(" 2. View my applications")
-    print(" 3. Update the status of an application")
-    print(" 4. Delete an application")
-    print(" 5. Exit")
+    print(" 3. Filter by status")
+    print(" 4. Update the status of an application")
+    print(" 5. Delete an application")
+    print(" 6. Exit")
     print("=================================")
     print("")
     
@@ -37,7 +38,7 @@ while True:
         pay = float(input("What is the pay? "))
         date_applied  = input("What is the date you applied? ")
         deadline = input("Is there an application deadline? ")
-        status = input("What is the status of your application currently? ")
+        status = input("What is the status of your application currently (interested/applied/interviewing/declined)? ")
         contact = input("Is there a contact? ")
         URL = input("What is the URL? ")
         resume_version = input("What is the resume version you used with this application? ")
@@ -59,6 +60,11 @@ while True:
             print("You have no current job applications added! Add one first to get started.")
             print("")
     elif choice == "3":
+        status = input("Choose a status to filter your applications (interested/applied/interviewing/declined): ")
+        print("")
+        filter_status(jobs, status)
+        print("=================================")
+    elif choice == "4":
         if jobs:
             print("Choose an application number to update the status:")
             print("")
@@ -70,7 +76,7 @@ while True:
         else:
             print("You have no current job applications added. Add one first!")
             print("")
-    elif choice == "4":
+    elif choice == "5":
         if jobs:
             view = input("Would you like to view your applications first? y/n:")
             if view == "y":
@@ -80,7 +86,7 @@ while True:
         else:
             print("Add an application first to get started.")
 
-    elif choice == "5":
+    elif choice == "6":
         print("See ya soon!")
         break
     else:

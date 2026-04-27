@@ -62,3 +62,19 @@ def delete_jobs(jobs, remove_id):
             break
     else:
         print("An application with that number does not exist.")
+
+def filter_status(jobs, status):
+    filtered_lists=[]
+    found = False
+    if jobs:
+        for applications in jobs:
+            if status == applications["status"]:
+                filtered_lists.append(applications)
+                found = True
+    if not found:
+        print("")
+        print("No applications with that status were found.")    
+        print("")
+    else:           
+        view_jobs(filtered_lists)
+
