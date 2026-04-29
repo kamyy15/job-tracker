@@ -1,5 +1,8 @@
 from storage import load_job_applications
+from database import init_db
 from jobs import add_job, view_jobs, update_status, delete_jobs, filter_status, update_application
+
+init_db()
 
 jobs = load_job_applications()
 print("=================================")

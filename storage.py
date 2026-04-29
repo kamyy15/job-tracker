@@ -1,17 +1,13 @@
-import json
-import os
+import sqlite3
 
-def load_job_applications(): # load from JSON into a list to interact with jobs.
-    jobs = []
-
-    if os.path.isfile("jobs.json"):
-        print('File exists')
-        with open("jobs.json", 'r', encoding='utf-8') as file:
-            jobs  = json.load(file)
-            return jobs
+def get_all_jobs():
+    connection = sqlite3.connect("jobs.db")
+    connection.row_factory = sqlite3.Row # tells SQLite to return rows that behave like dictionaries to still do job["company_name"]
+    cursor = connection.cursor()
+    cursor.execute("""
+    SELECT * FROM jobs
+    """)
+    jobs = cursor.fetchall() # call it and store it in a variable and return it.
+    connection.close()
+    return jobs # has to be last as once Python hits return it exits function immediately
     
-    return jobs
-
-def save_job_applications(jobs):
-    with open("jobs.json", 'w') as file:
-        json.dump(jobs, file)
