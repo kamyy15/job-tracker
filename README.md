@@ -13,6 +13,7 @@ and track their job applications in one place.
 - [ ] FastAPI backend
 - [ ] PostgreSQL migration
 - [ ] Frontend (in planning)
+- [ ] AI cover letter generator
 
 ---
 
