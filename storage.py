@@ -20,9 +20,30 @@ def add_job_db(date_posted, company_name, position, location, work_environment, 
     connection.commit()
     connection.close()
 
-def update_job_db():
+def update_job_db(update_id, field, new_value):
     connection = sqlite3.connect("jobs.db")
     cursor = connection.cursor()
+    cursor.execute(f"UPDATE jobs SET {field} = ? WHERE id = ?", (new_value, update_id)) # '?' get filled by the tuple (new_value, update_id)
+    connection.commit()
+    connection.close()
+
+def delete_job_db(remove_id):
+    connection  = sqlite3.connect("jobs.db")
+    cursor = connection.cursor()
     cursor.execute("""
-    UPDATE jobs SET status
-""")
+    DELETE FROM jobs WHERE id = ?
+    """, (remove_id,)) # has a comma at the end since its a tuple
+    connection.commit()
+    connection.close()
+
+def get_jobs_by_status(status):
+    connection = sqlite3.connect("jobs.db")
+    connection.row_factory = sqlite3.Row # tells SQLite to return rows that behave like dictionaries to still do job["company_name"]
+    cursor = connection.cursor()
+    cursor.execute("""
+    SELECT * FROM jobs WHERE status = ?
+    """, (status,))
+    jobs = cursor.fetchall()
+    connection.close()
+    return jobs
+

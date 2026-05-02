@@ -1,5 +1,7 @@
 import sqlite3
 
+# strucure of how the data is handled - doesn't store anything.
+
 def init_db():
     # connect to the database
     connection = sqlite3.connect("jobs.db") # like open for files; creates a jobs.db file if it doesn't exist, or connects to it if it does.

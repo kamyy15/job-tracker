@@ -1,10 +1,10 @@
-from storage import load_job_applications
+from storage import get_all_jobs, add_job_db, update_job_db, delete_job_db, get_jobs_by_status
 from database import init_db
 from jobs import add_job, view_jobs, update_status, delete_jobs, filter_status, update_application
 
 init_db()
+jobs = get_all_jobs()
 
-jobs = load_job_applications()
 print("=================================")
 print("Welcome to Job Application Tracker!")
 print("=================================")
@@ -49,12 +49,13 @@ while True:
         notes = input("Any extra notes? ")
         print("")
 
-        add_job(jobs, date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)
+        add_job(date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)
 
         print("Your job has been added :)")
         print("=================================")
 
     elif choice == "2":
+        jobs = get_all_jobs()
         if jobs:
             print("Current job applications: ")
             print("")
@@ -66,19 +67,21 @@ while True:
     elif choice == "3":
         status = input("Choose a status to filter your applications (interested/applied/interviewing/declined): ")
         print("")
-        filter_status(jobs, status)
+        filter_status(status)
         print("=================================")
     elif choice == "4":
+        jobs = get_all_jobs()
         if jobs:
+            field = "status"
             print("Choose an application number to update the status:")
             print("")
-            id = int(input("Application number: "))
+            update_id = int(input("Application number: "))
             print("")
-            new_status = input("New status update: ")
+            new_value = input("New status update: ")
             print("")
-            update_status(jobs, id, new_status)
+            update_status(update_id, field, new_value)
         else:
-            print("You have no current job applications added. Add one first!")
+            print("You have no current job applications with that status added. Add one first!")
             print("")
     elif choice == "5":
         update_view = input("Would you like to view your existing applications first? y/n: ")
@@ -151,18 +154,16 @@ while True:
                     new_value = input("Please enter the update: ")
                     print("")
                 
-                    update_application(jobs, update_id, field, new_value)
-
-                    
-                
+                    update_application( update_id, field, new_value)
 
     elif choice == "6":
+        jobs = get_all_jobs()
         if jobs:
             view = input("Would you like to view your applications first? y/n:")
             if view == "y":
                 view_jobs(jobs)
             remove_id = int(input("Which job application would you like to remove? "))
-            delete_jobs(jobs, remove_id)
+            delete_jobs(remove_id)
         else:
             print("Add an application first to get started.")
 
