@@ -22,7 +22,7 @@ def init_db():
         deadline TEXT,
         status TEXT,
         contact TEXT,
-        URL text,
+        URL TEXT,
         resume_version TEXT,
         notes TEXT
     )""") #runs sql statement
