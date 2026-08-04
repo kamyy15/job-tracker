@@ -3,17 +3,18 @@
 A full-stack app to help new grads and job seekers organize 
 and track their job applications in one place.
 
-> 🚧 Currently in development — actively building!
+> Currently in development — actively building!
 
 ---
 
 ## Roadmap
 - [x] CLI version
 - [x] SQLite database integration
-- [ ] FastAPI backend
-- [ ] PostgreSQL migration
+- [x] FastAPI backend
+- [x] AI cover letter generator
 - [ ] Frontend (in planning)
-- [ ] AI cover letter generator
+- [ ] PostgreSQL migration
+
 
 ---
 
