@@ -1,6 +1,6 @@
 from storage import get_all_jobs, add_job_db, update_job_db, delete_job_db, get_jobs_by_status
 from database import init_db
-from jobs import add_job, view_jobs, update_status, delete_jobs, filter_status, update_application
+from jobs import add_job, view_jobs, update_status, delete_jobs, filter_status, update_application, add_resume_information
 
 init_db()
 jobs = get_all_jobs()
@@ -21,7 +21,8 @@ while True:
     print(" 4. Update the status of an existing application")
     print(" 5. Update other features of an existing application")
     print(" 6. Delete an application")
-    print(" 7. Exit")
+    print(" 7. Add a Resume")
+    print(" 8. Exit")
     print("=================================")
     print("")
     
@@ -168,7 +169,26 @@ while True:
             print("Add an application first to get started.")
 
     elif choice == "7":
-        print("See ya soon!")
+        print("Add your resume information below:")
+        print("")
+        full_name = input("What is your full name?")
+        summary = input("Enter the summary on your resume or just a summary about yourself: :)")
+        education = input("Enter in your education information: ")
+        technical_skills_1 = input("Enter in the technical languages that you have experience/are familiar with: ")
+        technical_skills_2 = input("Enter in the technical frameworks and libraries that you have experience/are familiar with: ")
+        technical_skills_3 = input("Enter in the technical databases that you have experience/are familiar with: ")
+        technical_skills_4 = input("Enter in the technical tools and platforms that you have experience/are familiar with: ")
+        project_one = input("Enter information about a project you have completed/are working on: ")
+        project_two = input("Enter information about a project you have completed/are working on: ")
+        project_three = input("Enter information about a project you have completed/are working on: ")
+        experience = input("Enter information on your work experience: ")
+        print("")
+
+        add_resume_information(full_name, summary, education, technical_skills_1, technical_skills_2, technical_skills_3, technical_skills_4, project_one, project_two, project_three, experience)
+        print("Your resume has been added :)")
+        print("=================================")
+
+    elif choice == "8":
         break
     else:
         print("Choose an option between 1-4!")

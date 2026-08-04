@@ -1,4 +1,7 @@
 import sqlite3
+from datetime import datetime
+
+# All CRUD operations (Create, Read, Update, Delete) that interact with tables
 
 def get_all_jobs():
     connection = sqlite3.connect("jobs.db")
@@ -11,12 +14,12 @@ def get_all_jobs():
     connection.close()
     return jobs # has to be last as once Python hits return it exits function immediately
     
-def add_job_db(date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes): #don't need jobs or id parameters - id parameter is being handles by AUTOINCREMENT.
+def add_job_db(date_posted, company_name, position, qualifications, job_description, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes): #don't need jobs or id parameters - id parameter is being handles by AUTOINCREMENT.
     connection = sqlite3.connect("jobs.db")
     cursor = connection.cursor()
     cursor.execute("""
-    INSERT INTO jobs ( date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, ( date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)) # sqlite takes what's passed into the tuple and puts them in place of the value placeholders.
+    INSERT INTO jobs ( date_posted, company_name, position, qualifications, job_description, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, ( date_posted, company_name, position, qualifications, job_description, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)) # sqlite takes what's passed into the tuple and puts them in place of the value placeholders.
     connection.commit()
     connection.close()
 
@@ -46,4 +49,47 @@ def get_jobs_by_status(status):
     jobs = cursor.fetchall()
     connection.close()
     return jobs
+
+def get_jobs_by_id(id):
+    connection = sqlite3.connect("jobs.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("""
+    SELECT * FROM jobs WHERE id = ?
+    """, (id,))
+    jobs = cursor.fetchone()
+    connection.close()
+    return jobs
+
+def add_resume_information_db(full_name, summary, education, technical_skills_1, technical_skills_2, technical_skills_3, technical_skills_4, project_one, project_two, project_three, experience):
+    connection = sqlite3.connect("jobs.db")
+    cursor = connection.cursor()
+    updated_at = datetime.now().isoformat()
+    cursor.execute("""
+    INSERT INTO resumes (full_name, summary, education, technical_skills_languages, technical_skills_frameworks_libraries, technical_skills_databases, technical_skills_tools_platforms, project_one, project_two, project_three, experience, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (full_name, summary, education, technical_skills_1, technical_skills_2, technical_skills_3, technical_skills_4, project_one, project_two, project_three, experience, updated_at))
+    connection.commit()
+    connection.close()
+
+def get_resume():
+    connection = sqlite3.connect("jobs.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("""
+    SELECT * FROM resumes
+    """)
+    resumes = cursor.fetchone()
+    connection.close()
+    return resumes
+
+def save_cover_letter(job_id, content):
+    connection = sqlite3.connect("jobs.db")
+    cursor = connection.cursor()
+    created_at = datetime.now().isoformat()
+    cursor.execute("""
+    INSERT INTO cover_letters (application_id, content, created_at) VALUES (?, ?, ?)
+    """, (job_id, content, created_at))
+    connection.commit()
+    connection.close()
+    
 

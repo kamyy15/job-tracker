@@ -1,7 +1,7 @@
-from storage import get_all_jobs, add_job_db, update_job_db, delete_job_db, get_jobs_by_status
+from storage import get_all_jobs, add_job_db, update_job_db, delete_job_db, get_jobs_by_status, add_resume_information_db
 
-def add_job( date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes):
-    add_job_db(date_posted, company_name, position, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)
+def add_job(date_posted, company_name, position, qualifications, job_description, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes):
+    add_job_db(date_posted, company_name, position, qualifications, job_description, location, work_environment, employment_type, pay, date_applied, deadline, status, contact, URL, resume_version, notes)
 
 def view_jobs(jobs): # needs jobs passed in a paramter to see it exists and be able to interact with it.
     if jobs:
@@ -22,6 +22,9 @@ def view_jobs(jobs): # needs jobs passed in a paramter to see it exists and be a
 
     else:
         print('You have no current job apps! Add some first to view them.')
+
+def add_resume_information(full_name, summary, education, technical_skills_1, technical_skills_2, technical_skills_3, technical_skills_4, project_one, project_two, project_three, experience):
+    add_resume_information_db(full_name, summary, education, technical_skills_1, technical_skills_2, technical_skills_3, technical_skills_4, project_one, project_two, project_three, experience)
 
 def update_status(update_id, field, new_value):
     update_job_db(update_id, field, new_value)
